@@ -17,5 +17,5 @@ export function configure(aurelia: Aurelia) {
         config.withBaseUrl(baseUrl);
     });
 
-    aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('app/components/app/app')));
+    aurelia.start().then(() => aurelia.setRoot(PLATFORM.moduleName('components/app/app')));
 }
