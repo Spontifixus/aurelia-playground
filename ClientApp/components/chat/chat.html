@@ -1,0 +1,25 @@
+<template>
+    <require from="./chat.css" as="scoped"></require>
+    <h1>Chat</h1>
+
+    <p>This is a simple example of a SignalR Chat application. Every message you type here will be displayed at all other clients.</p>
+
+    <form>
+        <div class="form-row">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Your name..." value.two-way="senderName">
+            </div>
+            <div class="col-7">
+                <input type="text" class="form-control" placeholder="Your message..." value.two-way="message">
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary" click.delegate="sendMessage()">Send</button>
+            </div>
+        </div>
+    </form>
+    <p>
+        <ul>
+            <li repeat.for = "msg of incomingMessages"><strong>${msg.senderName}:</strong> ${msg.text}</li>
+        </ul>
+    </p>
+</template>

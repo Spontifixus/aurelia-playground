@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,15 @@ namespace AureliaPlayground
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSignalR(o =>
+            {
+                o.EnableJSONP = true;
+                o.Hubs = new HubOptions
+                {
+                    EnableDetailedErrors = true,
+                };
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +48,8 @@ namespace AureliaPlayground
             }
 
             app.UseStaticFiles();
+
+            app.UseSignalR();
 
             app.UseMvc(routes =>
             {

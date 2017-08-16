@@ -2,6 +2,16 @@
   "name": "aurelia-playground",
   "version": "0.1.0",
   "dependencies": {
+    "@types/jquery": {
+      "version": "3.2.11",
+      "from": "@types/jquery@*",
+      "resolved": "https://registry.npmjs.org/@types/jquery/-/jquery-3.2.11.tgz"
+    },
+    "@types/signalr": {
+      "version": "2.2.34",
+      "from": "@types/signalr@latest",
+      "resolved": "https://registry.npmjs.org/@types/signalr/-/signalr-2.2.34.tgz"
+    },
     "@types/webpack-env": {
       "version": "1.13.0",
       "from": "@types/webpack-env@>=1.13.0 <2.0.0",
@@ -1394,6 +1404,11 @@
       "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
       "dev": true
     },
+    "ms-signalr-client-jquery-3": {
+      "version": "2.2.10",
+      "from": "ms-signalr-client-jquery-3@latest",
+      "resolved": "https://registry.npmjs.org/ms-signalr-client-jquery-3/-/ms-signalr-client-jquery-3-2.2.10.tgz"
+    },
     "ncname": {
       "version": "1.0.0",
       "from": "ncname@>=1.0.0 <1.1.0",
@@ -2167,6 +2182,11 @@
       "from": "sha.js@>=2.4.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/sha.js/-/sha.js-2.4.8.tgz",
       "dev": true
+    },
+    "signalr": {
+      "version": "2.2.2",
+      "from": "signalr@latest",
+      "resolved": "https://registry.npmjs.org/signalr/-/signalr-2.2.2.tgz"
     },
     "sort-keys": {
       "version": "1.1.2",

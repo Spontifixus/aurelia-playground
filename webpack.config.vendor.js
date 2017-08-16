@@ -34,6 +34,7 @@ module.exports = ({ prod } = {}) => {
                 'bootstrap',
                 'bootstrap/dist/css/bootstrap.css',
                 'jquery',
+                'ms-signalr-client-jquery-3',
                 'popper.js'
             ],
         },
