@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace aut.Controllers
+namespace AureliaPlayground.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private static string[] Summaries = new[]
-        {
+        private static readonly string[] summaries = {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
@@ -22,7 +20,7 @@ namespace aut.Controllers
             {
                 DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
                 TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
+                Summary = summaries[rng.Next(summaries.Length)]
             });
         }
 
@@ -32,13 +30,7 @@ namespace aut.Controllers
             public int TemperatureC { get; set; }
             public string Summary { get; set; }
 
-            public int TemperatureF
-            {
-                get
-                {
-                    return 32 + (int)(this.TemperatureC / 0.5556);
-                }
-            }
+            public int TemperatureF => 32 + (int)(this.TemperatureC / 0.5556);
         }
     }
 }

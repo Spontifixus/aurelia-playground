@@ -1,26 +1,20 @@
 <template bindable="router">
-    <require from="./navmenu.css"></require>
-    <div class="main-nav">
-        <div class="navbar navbar-inverse">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#/home">aut</a>
-            </div>
-            <div class="clearfix"></div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li repeat.for = "row of router.navigation" class="${ row.isActive ? 'link-active' : '' }" >
-                        <a href.bind = "row.href">
-                            <span class="glyphicon glyphicon-${ row.settings.icon }"></span> ${ row.title }
-                        </a>
-                    </li>
-                </ul>
-            </div>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#/home">aurelia-playground</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li repeat.for = "row of router.navigation" class="nav-item ${ row.isActive ? 'active' : '' }" >
+                    <a class="nav-link" href.bind = "row.href">
+                        ${ row.title } <span show.bind="row.isActive" class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-    </div>
+    </nav>
+    
 </template>
