@@ -1,37 +1,32 @@
-import { SignalRHub } from 'rxjs-signalr';
+import { ChatHubProxy, Message } from "../../services/chat-hub-proxy";
+import { Subscription } from 'rxjs';
+import { autoinject } from 'aurelia-framework';
 
-class Message {
-    public senderName: string;
-    public text: string;
-}
-
+@autoinject
 export class Chat {
 
     public senderName: string;
-    public message: string;
+    public text: string;
     public incomingMessages: Message[] = [];
-    private hub: SignalRHub;
 
-    constructor() {
-        this.hub = new SignalRHub('chat');
-        this.hub.on('broadcastMessage').subscribe(data => {
-            this.handleIncomingMessage(data);
-        });
-        this.hub.start();
+    private subscription: Subscription;
+
+    constructor(private chatHubProxy: ChatHubProxy) {
     }
 
-    private handleIncomingMessage(data: any) {
-        var message = new Message();
-        message.senderName = data.senderName;
-        message.text = data.text;
-        this.incomingMessages.push(message);
+    public activate(): void {
+        this.subscription = this.chatHubProxy.messageReceived.subscribe(message => {
+            this.incomingMessages.push(message);
+        });
+    }
+
+    public decativate(): void {
+        this.subscription.unsubscribe();
     }
 
     public sendMessage() {
-        var message = new Message();
-        message.senderName = this.senderName;
-        message.text = this.message;
-        this.hub.send('sendMessage', message);
-        this.message = '';
+        var message = new Message(this.senderName, this.text);
+        this.chatHubProxy.send(message);
+        this.text = '';
     }
 }

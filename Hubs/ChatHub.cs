@@ -8,7 +8,7 @@ namespace AureliaPlayground.Hubs
     {
         public void SendMessage(dynamic message)
         {
-            this.Clients.All.broadcastMessage(new { message.senderName, message.text });
+            this.Clients.All.messageReceived(message);
         }
     }
 }
