@@ -1404,11 +1404,6 @@
       "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
       "dev": true
     },
-    "ms-signalr-client-jquery-3": {
-      "version": "2.2.10",
-      "from": "ms-signalr-client-jquery-3@latest",
-      "resolved": "https://registry.npmjs.org/ms-signalr-client-jquery-3/-/ms-signalr-client-jquery-3-2.2.10.tgz"
-    },
     "ncname": {
       "version": "1.0.0",
       "from": "ncname@>=1.0.0 <1.1.0",
