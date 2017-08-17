@@ -2135,6 +2135,16 @@
       "resolved": "https://registry.npmjs.org/ripemd160/-/ripemd160-2.0.1.tgz",
       "dev": true
     },
+    "rxjs": {
+      "version": "5.4.3",
+      "from": "rxjs@latest",
+      "resolved": "https://registry.npmjs.org/rxjs/-/rxjs-5.4.3.tgz"
+    },
+    "rxjs-signalr": {
+      "version": "0.0.14",
+      "from": "rxjs-signalr@latest",
+      "resolved": "https://registry.npmjs.org/rxjs-signalr/-/rxjs-signalr-0.0.14.tgz"
+    },
     "safe-buffer": {
       "version": "5.1.1",
       "from": "safe-buffer@>=5.1.0 <5.2.0",
@@ -2295,6 +2305,11 @@
       "from": "svgo@>=0.7.0 <0.8.0",
       "resolved": "https://registry.npmjs.org/svgo/-/svgo-0.7.2.tgz",
       "dev": true
+    },
+    "symbol-observable": {
+      "version": "1.0.4",
+      "from": "symbol-observable@>=1.0.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.0.4.tgz"
     },
     "tapable": {
       "version": "0.2.6",

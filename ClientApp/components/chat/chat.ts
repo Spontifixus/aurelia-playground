@@ -1,39 +1,37 @@
-import { SignalRClient } from "../../services/signalr-client";
-import { autoinject } from "aurelia-framework";
+import { SignalRHub } from 'rxjs-signalr';
 
 class Message {
     public senderName: string;
     public text: string;
 }
 
-@autoinject
 export class Chat {
 
     public senderName: string;
     public message: string;
     public incomingMessages: Message[] = [];
+    private hub: SignalRHub;
 
-    constructor(private signalr: SignalRClient) {
-    }
-
-    public activate() {
-        this.signalr.setCallback('chat', 'broadcastMessage', data => this.handleIncomingMessage(data), 'cb');
-        this.signalr.start();
+    constructor() {
+        this.hub = new SignalRHub('chat');
+        this.hub.on('broadcastMessage').subscribe(data => {
+            this.handleIncomingMessage(data);
+        });
+        this.hub.start();
     }
 
     private handleIncomingMessage(data: any) {
         var message = new Message();
         message.senderName = data.senderName;
-        message.text = data.message;
+        message.text = data.text;
         this.incomingMessages.push(message);
     }
 
-    public deactivate() {
-        this.signalr.stop('chat', 'broadcastMessage', this.handleIncomingMessage, 'cb');
-    }
-
-    public async sendMessage(): Promise<any> {
-        await this.signalr.invoke('chat', 'sendMessage', this.senderName, this.message);
+    public sendMessage() {
+        var message = new Message();
+        message.senderName = this.senderName;
+        message.text = this.message;
+        this.hub.send('sendMessage', message);
         this.message = '';
     }
 }

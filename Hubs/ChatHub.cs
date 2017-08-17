@@ -6,9 +6,9 @@ namespace AureliaPlayground.Hubs
     [HubName("chat")]
     public class ChatHub : Hub
     {
-        public void SendMessage(string senderName, string message)
+        public void SendMessage(dynamic message)
         {
-            this.Clients.All.broadcastMessage(new { senderName, message });
+            this.Clients.All.broadcastMessage(new { message.senderName, message.text });
         }
     }
 }
