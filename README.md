@@ -1,30 +1,33 @@
 # SignalR for ASP.NET Core 2.0 with Aurelia and Webpack 
 
-Just today (September 15, 2017) Microsoft announced the [first alpha version of **SignalR for ASP.NET Core 2.0**][1]. Now these are great news! So I immediately had to try this out with my favorite way of building web apps: The [Aurelia framework][2]. And I can already say: It works like a charm. But lets start from the beginning.
+Just today (September 15, 2017) Microsoft announced the [first alpha version of **SignalR for ASP.NET Core 2.0**][1]. Now these are great news! I immediately had to try this out with my favorite way of building web apps: The [Aurelia framework][2]. I can already say: It works like a charm. But let me start from the beginning.
+
+> **TL;DR** As you might have guessed the "feature-signalr-core"-branch where this very README.md file is located contains the code I am going do develop in this article. So feel free to go ahead and directly and clone this branch instead of building it yourself!
+
 
 ## Setting up a simple application
 
-I used a skeleton I once created to have an easy starting point with Aurelia. Initially the skeleton was created using the Aurelia template coming with the the [ASP.NET Core SPA templates][4]. I upgraded Bootstrap to the shiny new version 4 but that's basically all I changed. Feel free to use this template as a starting point for your projects!
+I used a skeleton I once created to have an easy starting point with Aurelia. Initially the skeleton was set up using the Aurelia template coming with the the [ASP.NET Core SPA templates][4] (`dotnet new aurelia`). I upgraded Bootstrap to the shiny new version 4 but that's basically all I changed. Feel free to use it as a starting point for your projects!
 
-For this tutorial I am going to use this skeleton as a baseline. So go ahead and clone [https://github.com/Spontifixus/aurelia-playground.git][3] to get started!
+For this project I am going to use this template as a baseline. Go ahead and clone [https://github.com/Spontifixus/aurelia-playground.git][3] to get started!
 
 ## SignalR on the server
 
-This section covers the server-side components needed to power out chat application.
+This section covers the server-side components needed to power the chat application.
 
 ### Installing the nuget package
 
-To install the new SignalR everything you need to to is to open a console and run
+To install the new SignalR, everything you need to do, is to open a console and run
 
 ````bash
 dotnet add package Microsoft.AspNetCore.SignalR --version 1.0.0-alpha1-final
 ```` 
 
-That installs the required packages and dependencies to enable your web service to facilitate the powers of SignalR.
+That installs all required packages and dependencies needed by SignalR.
 
 ### Creating a ChatHub
 
-The center of all SignalR activities are so called Hubs. Hubs handle connections, provide methods the clients can invoke and have the ability to send events to the clients. So we need to create a `ChatHub` that provides the functionality for our application: Providing a method to send a chat message and distribute that message as an event to connected clients.
+The center of all SignalR activities are so called Hubs. Hubs handle connections and provide methods the clients can invoke remotely. Of course hubs can send events to the clients, too! So we need to create a hub class, that can receive a chat message and distribute it among the clients.
 
 Let's create a folder named "SignalR" and add a file named "ChatHub.cs" to it:
 
@@ -44,7 +47,8 @@ namespace AureliaPlayground.SignalR
     }
 }
 ````
-As you can see, the method `SendMessage` takes a message and distributes it to all clients. Of course the definition of the `Message`-class is still missing, so let's add that quickly. Add a file named "Message.cs" to the SignalR-folder:
+
+As you can see, the method `SendMessage` takes a message and distributes it to all clients. Of course the definition of the `Message`-class is still missing, so let's add that quickly. Add a file named "Message.cs" to the "SignalR"-folder:
 
 ````csharp
 namespace AureliaPlayground.SignalR
@@ -57,19 +61,19 @@ namespace AureliaPlayground.SignalR
 }
 ````
 
-Obviously this is a very simple implementation and should be expanded to for example have a proper error handling, but for now this will do.
+Obviously this is a very simple implementation. It should be expanded to have at least a proper error handling, but for now this will do.
 
 ### Configuring our Application
 
-Now that our chat hub class was implemented we need to make the hub known to the system. We do this by registering the SignalR components to the dependency injection container and configuring a route to the chat hub. Adding SignalR to the container can be achieve by adding the following line to the `ConfigureServices`-method of the `Startup`-class of your application:
+Now that our `ChatHub`-class was implemented, we need to make the hub known to the system. We do this by first registering the SignalR components to the dependency injection container and then configuring a route to the chat hub. Adding SignalR to the container can be achieved by adding the following line to the `ConfigureServices`-method of the `Startup`-class:
 
 ````csharp
 services.AddSignalR();
 ````
 
-And don't forget to add the using directive (`using Microsoft.AspNetCore.SignalR;`)!
+Don't forget to add the using directive (`using Microsoft.AspNetCore.SignalR;`)!
 
-With the new SignalR for ASP.NET Core 2.0 configuring the routes is as easy as we know it from ASP.NET Core MVC and it works very much the same way. Just add the following snippet to the `Configure`-method of the `Startup`-class:
+With the new SignalR for ASP.NET Core 2.0 configuring the routes is as easy as we know it from ASP.NET Core MVC - it works very much the same way. Just add the following snippet to the `Configure`-method of the `Startup`-class:
 
 ````csharp
 app.UseSignalR(routes =>
@@ -78,7 +82,7 @@ app.UseSignalR(routes =>
 });
 ````
 
-Again, don't forget to add the using directive for the `ChatHub` class. This code configures SignalR to publish the chat hub under the `/chat` URL.
+Again, don't forget to add the using directive for the `ChatHub`-class. This code configures SignalR to publish the hub under the `/chat` URL.
 
 This is all you need to do to get things running on the server side!
 
@@ -88,7 +92,7 @@ This sections explains how to setup the client-side components of our applicatio
 
 ### Installing the client
 
-Microsoft built an entirely new SignalR client for JavaScript or TypeScript. The new client has a much simpler interface than those of the older versions and thus can be configured and used much more intuitively.
+Microsoft built an entirely new SignalR client for JavaScript or TypeScript. The new client has a much simpler interface than the older versions and thus can be configured and used much more intuitively.
 
 First things first: To be able to use SignalR on the client side install the npm package by opening a command line and running
 
@@ -96,7 +100,7 @@ First things first: To be able to use SignalR on the client side install the npm
 npm install @aspnet/signalr-client --save
 ````
 
-Our little application uses webpack as a bundler, and to bundle the client into our vendor bundle we need to modify the relevant config file. So add `@aspnet/signalr-client` to the list of packages in the webpack.config.vendor.js file:
+Our little application uses webpack, and to bundle the client into our vendor bundle, we need to modify the relevant config file. So add `@aspnet/signalr-client` to the list of packages in the "webpack.config.vendor.js" file:
 
 ````javascript
 vendor: [
@@ -120,7 +124,7 @@ vendor: [
 ]
 ````
 
-Then open a console and run webpack to rebundle the vendor.js file:
+Then open a console and run webpack to rebundle the "vendor.js" file:
 
 ````bash
 webpack --config webpack.config.vendor.js
@@ -137,7 +141,7 @@ export class Chat {
 }
 ````
 
-To establish a connection to the chat hub we need to set up a hub connection. The SignalR client provides a class taking care of this. Let's create a private field and a constructor to create and instance of the `HubConnection`:
+To establish a connection to the chat hub we need to set up a hub connection. The SignalR client provides a class taking care of this. Let's create a private field and a constructor to create an instance of the `HubConnection`-class:
 
 ````typescript
 private chatHubConnection: HubConnection;
@@ -149,7 +153,7 @@ constructor() {
 
 Note that in a real-life application you usually would encapsulate the connectivity to the chat hub in a chat service that you then can resolve using dependency injection.
 
-Before we listen for incoming messages we need to add a field to store them so we can access them from the template:
+Before we listen for incoming messages we need to add a field to store them, so we can access them from the template:
 
 ````typescript
 chatLog: Message[] = [];
@@ -158,7 +162,7 @@ chatLog: Message[] = [];
 Now we can register to the `IncomingMessageEvent` in the constructor:
 
 ````typescript
-this.chatHubConnection.on('incomingMessageEvent', (incomingMessage: Message) => {
+this.chatHubConnection.on('IncomingMessageEvent', (incomingMessage: Message) => {
     this.chatLog.push(incomingMessage);
 });
 ````
@@ -172,7 +176,7 @@ export class ChatMessage {
 }
 ````
 
-To actually listen to new events we need to start the hub connection. Starting a hub connection returns a promise that gets resolved once the connection is established. We will store the promise in a private field so we can access it lateron to ensure a working connection. To start the connection when our component gets activated we implement the `activate`-method:
+To actually listen to new events we need to start the hub connection. Starting a hub connection returns a promise that gets resolved once the connection is established. We will store the promise in a private field so we can access it later on to ensure a working connection. To start the connection when our component gets activated we implement the `activate`-method:
 
 ````typescript
 private connectionPromise?: Promise<void>;
@@ -265,7 +269,6 @@ dotnet run
 The first impression is that the first alpha of SignalR for ASP.NET Core 2.0 already works really well and is fun to use. I literally put this together in about half an hour (writing this up took a bit longer of course...).
 
 I am really pleased where this is going and how well this works together with Aurelia and Webpack. What are your experiences with this?
-
 
 
 
