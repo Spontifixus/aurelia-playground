@@ -27,6 +27,13 @@ export class App {
             moduleId: PLATFORM.moduleName('../fetchdata/fetchdata'),
             nav: true,
             title: 'Fetch data'
+        }, {
+            route: 'chat',
+            name: 'chat',
+            settings: { icon: 'th-list' },
+            moduleId: PLATFORM.moduleName('../chat/chat'),
+            nav: true,
+            title: 'Chat'
         }]);
 
         this.router = router;
