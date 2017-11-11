@@ -2,6 +2,12 @@
   "name": "aurelia-playground",
   "version": "0.1.0",
   "dependencies": {
+    "@types/jquery": {
+      "version": "3.2.16",
+      "from": "@types/jquery@latest",
+      "resolved": "https://registry.npmjs.org/@types/jquery/-/jquery-3.2.16.tgz",
+      "dev": true
+    },
     "@types/webpack-env": {
       "version": "1.13.0",
       "from": "@types/webpack-env@>=1.13.0 <2.0.0",
@@ -679,6 +685,11 @@
       "resolved": "https://registry.npmjs.org/domain-browser/-/domain-browser-1.1.7.tgz",
       "dev": true
     },
+    "dragend": {
+      "version": "0.2.0",
+      "from": "dragend@latest",
+      "resolved": "https://registry.npmjs.org/dragend/-/dragend-0.2.0.tgz"
+    },
     "ee-first": {
       "version": "1.1.1",
       "from": "ee-first@1.1.1",
@@ -907,6 +918,11 @@
       "from": "graceful-readlink@>=1.0.0",
       "resolved": "https://registry.npmjs.org/graceful-readlink/-/graceful-readlink-1.0.1.tgz",
       "dev": true
+    },
+    "hammerjs": {
+      "version": "1.0.11",
+      "from": "hammerjs@>=1.0.5 <1.1.0",
+      "resolved": "https://registry.npmjs.org/hammerjs/-/hammerjs-1.0.11.tgz"
     },
     "has": {
       "version": "1.0.1",
@@ -1978,6 +1994,12 @@
       "resolved": "https://registry.npmjs.org/range-parser/-/range-parser-1.2.0.tgz",
       "dev": true
     },
+    "raw-loader": {
+      "version": "0.5.1",
+      "from": "raw-loader@>=0.5.1 <0.6.0",
+      "resolved": "https://registry.npmjs.org/raw-loader/-/raw-loader-0.5.1.tgz",
+      "dev": true
+    },
     "read-pkg": {
       "version": "1.1.0",
       "from": "read-pkg@>=1.0.0 <2.0.0",
@@ -2136,6 +2158,12 @@
       "version": "0.3.0",
       "from": "schema-utils@>=0.3.0 <0.4.0",
       "resolved": "https://registry.npmjs.org/schema-utils/-/schema-utils-0.3.0.tgz",
+      "dev": true
+    },
+    "script-loader": {
+      "version": "0.7.2",
+      "from": "script-loader@latest",
+      "resolved": "https://registry.npmjs.org/script-loader/-/script-loader-0.7.2.tgz",
       "dev": true
     },
     "semver": {

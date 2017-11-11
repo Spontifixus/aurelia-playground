@@ -14,9 +14,8 @@ module.exports = ({ prod } = {}) => {
         module: {
             loaders: [
                 { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, loader: 'url-loader?limit=100000' },
-                { test: /\.css(\?|$)/, loader: extractCSS.extract([isDevBuild ? 'css-loader' : 'css-loader?minimize']) }
-            ]
-        },
+                { test: /\.css(\?|$)/, loader: extractCSS.extract([isDevBuild ? 'css-loader' : 'css-loader?minimize']) }            ]
+            },
         entry: {
             vendor: [
                 'aurelia-event-aggregator',
@@ -33,6 +32,7 @@ module.exports = ({ prod } = {}) => {
                 'aurelia-templating-router',
                 'bootstrap',
                 'bootstrap/dist/css/bootstrap.css',
+                'dragend',
                 'jquery',
                 'popper.js'
             ],
